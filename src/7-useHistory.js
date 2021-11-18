@@ -1,14 +1,17 @@
-import { Switch, Route, Link, useLocation } from "react-router-dom";
-
-function useQuery() {
-    return new URLSearchParams(useLocation().search)
-}
+import { Switch, Route, Link, useHistory } from "react-router-dom";
 
 function App() {
-    const query = useQuery();
-    const chancho = query.get('chancho');
-    const nombre = query.get('nombre');
-    console.log({chancho, nombre});
+    const history = useHistory();
+    console.log({history});
+    const forward = () => {
+        history.goForward();
+    }
+    const back = () => {
+        history.goBack();
+    }
+    const push = (url) => {
+        history.push(url);
+    }
   return (
     <div>
       <nav>
@@ -18,6 +21,9 @@ function App() {
         </ul>
       </nav>
       <section>
+          <button onClick={back}>Fack</button>
+          <button onClick={forward}>Forward</button>
+          <button onClick={() => push('/chanchitofeliz')}>Push</button>
         <Switch>
           <Route exact path='/'>
             <h1>Inicio</h1>
